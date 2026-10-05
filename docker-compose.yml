@@ -46,11 +46,14 @@ services:
     image: jupyter/base-notebook:latest
     container_name: jupyter
     restart: always
-    command: start-notebook.sh --NotebookApp.token='' --NotebookApp.base_url='/jupyter'
+    ports:
+      - "8888:8888"
+    command: start-notebook.sh --NotebookApp.token='' --NotebookApp.base_url='/jupyter/' --NotebookApp.disable_check_xsrf=True
     environment:
       JUPYTER_ENABLE_LAB: "yes"
     networks:
       - frontend_net
+      - backend_net
     volumes:
       - ./jupyter/notebooks:/home/jovyan/work
 
@@ -58,6 +61,8 @@ services:
     image: grafana/grafana:latest
     container_name: grafana
     restart: always
+    ports:
+       - "3000:3000"
     environment:
       GF_SERVER_SERVE_FROM_SUB_PATH: "true"
       GF_SERVER_ROOT_URL: "http://localhost/grafana/"
