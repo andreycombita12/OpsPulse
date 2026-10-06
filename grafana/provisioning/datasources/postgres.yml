@@ -1,0 +1,17 @@
+apiVersion: 1
+
+datasources:
+  - name: OpsPulse-Postgres
+    type: postgres
+    access: proxy
+    url: database:5432
+    user: opspulseuser
+    database: opspulsedb
+    secureJsonData:
+      password: opspulsepass
+    jsonData:
+      database: opspulsedb
+      sslmode: "disable"
+      postgresVersion: 1600
+    isDefault: true
+    editable: true
